@@ -44,7 +44,19 @@ namespace WebApplication1.controller
             db.Products.Update(p2);
             db.SaveChanges();
         }
-
+        [HttpPut("updateTry")]
+        public void UpdateProducts1(Products p)
+        {
+            Products p2 = db.Products.FirstOrDefault(x => x.ProductId == p.ProductId);
+            p2.ProductName = p.ProductName;
+            p2.Category = p.Category;
+            p2.Status = p.Status;
+            p2.Material = p.Material;
+            p2.Description = p.Description;
+           
+            db.Products.Update(p2);
+            db.SaveChanges();
+        }
     }
 
 
