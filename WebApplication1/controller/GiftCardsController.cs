@@ -31,7 +31,13 @@ namespace WebApplication1.controller
             db.GiftCards.Update(g2);
             db.SaveChanges();
         }
-
+        [HttpDelete]
+        public void DeleteCustomers(string CustomerId)
+        {
+            Customers c = db.Customers.FirstOrDefault(x => x.CustomerId == CustomerId);
+            db.Customers.Remove(c);
+            db.SaveChanges();
+        }
 
     }
 }

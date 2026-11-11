@@ -12,7 +12,7 @@ namespace WebApplication1.controller
         [HttpGet]
         public List<Customers> GetAllCustomers()
         {
-            return db.Customers.ToList();
+            return db.Customers.Where(x=>x.Status==true).ToList();
         }
         [HttpGet("by City")]
         // פעולה שמקבלת שם עיר ומחזירה רשימת לקוחות
@@ -41,7 +41,30 @@ namespace WebApplication1.controller
             db.Customers.Update(c2);
             db.SaveChanges();
         }
-
+        //מחיקה מהמאגר ע"י שינוי הסטטוס מאמת לשקר
+        [HttpPut("deleteCustomer")]
+        public void DelCustomers(string id)
+        {
+            Customers c2 = db.Customers.FirstOrDefault(x => x.CustomerId == id);
+            c2.Status = false;
+            db.Customers.Update(c2);
+            db.SaveChanges();
+        }
+        //מחיקה טוטאלית מהמאגר ע"י פעולת מחיקה לא מומלץ לטבלאות עם מספר נתונים
+        [HttpDelete]
+        public void DeleteCustomers(string CustomerId)
+        {
+            Customers c = db.Customers.FirstOrDefault(x => x.CustomerId == CustomerId);
+            db.Customers.Remove(c);
+            db.SaveChanges();
+        }
+        [HttpDelete("byNum")]
+        public void DeleteCustomers11(string CustomerId)
+        {
+            Customers c = db.Customers.FirstOrDefault(x => x.CustomerId == CustomerId);
+            db.Customers.Remove(c);
+            db.SaveChanges();
+        }
 
     }
 }
